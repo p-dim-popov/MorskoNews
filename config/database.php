@@ -144,4 +144,5 @@ return [
 
     ],
 
+    'builtInProfilesPassword' => env('BUILT_IN_PROFILES_PASSWORD'),
 ];
