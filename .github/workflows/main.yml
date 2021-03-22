@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  push:
+    branches: [dev, MN-7/Integrate-deploy-with-Github-and-Heroku]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{secrets.HEROKU_1117419_API_KEY}}
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          heroku auth:token
+          heroku container:login
+          docker build -t morskonews .
+          docker tag morskonews registry.heroku.com/morskonews/web
+          docker push registry.heroku.com/morskonews/web
+          heroku container:release web -a morskonews
