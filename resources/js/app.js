@@ -44,8 +44,8 @@ require('alpinejs');
 
 [...document.getElementsByClassName("utc-to-local")]
     .forEach(x => {
-        if (!!x.value) x.value = dayjs.utc(x.value.trim()).local().format('llll')
-        else x.textContent = dayjs.utc(x.textContent.trim()).local().format('llll')
+        if (!!x.value) x.value = dayjs.utc(x.value.trim()).local().format('lll')
+        else x.textContent = dayjs.utc(x.textContent.trim()).local().format('lll')
     });
 
 (function () {

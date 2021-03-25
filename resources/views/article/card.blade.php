@@ -1,6 +1,6 @@
 <!-- Article card -->
 @php
-    $isList = request()->routeIs('articles.index')
+    $isList = request()->routeIs('articles.index', 'articles.search')
 @endphp
 
 <div class="flex justify-center items-center">
