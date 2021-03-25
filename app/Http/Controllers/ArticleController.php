@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\{StoreArticleRequest, UpdateArticleRequest};
 use App\Models\{Article, Category, User};
-use Illuminate\{Http, Contracts};
+use Illuminate\{Database\Eloquent\Builder, Http, Contracts, Support\Str};
 
 class ArticleController extends Controller
 {
@@ -15,6 +15,7 @@ class ArticleController extends Controller
         $this->middleware('auth')->except([
             'index',
             'show',
+            'search',
         ]);
         $this->middleware('role:'.User::ROLES['ADMIN'])->only([
             'create',
@@ -135,5 +136,17 @@ class ArticleController extends Controller
         $article->categories()->detach($article->categories()->get());
         $article->delete();
         return redirect()->route('articles.index');
+    }
+
+    public function search(string $slug) {
+        $articles = collect(preg_split('/[\s,]+/', Str::lower($slug)))
+            ->reduce(
+                fn(Builder $query, string $keyword) => $query
+                    ->where('title', 'like', '%'.$keyword.'%')
+                    ->orWhereHas('categories', fn(Builder $query0) => $query0
+                        ->where('name', 'like', '%'.$keyword.'%')),
+                Article::query())
+            ->paginate(self::ARTICLES_PER_PAGE);
+        return view('article.pages.search', ['articles' => $articles, 'slug' => $slug]);
     }
 }

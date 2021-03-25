@@ -30,3 +30,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.dayjs = require('dayjs');
 dayjs.extend(require('dayjs/plugin/utc'));
 dayjs.extend(require('dayjs/plugin/localizedFormat'))
+dayjs.extend(require( 'dayjs/plugin/localeData'))
