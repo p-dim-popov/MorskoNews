@@ -14,7 +14,10 @@
                     </a>
                     <div class="flex flex-row items-center space-x-1.5">
                         @if(auth()->id() === $article->user->id)
-                            @include('components.delete-button', ['action' => route('articles.destroy', ['article' => $article])])
+                            @include('components.delete-button', [
+                                    'action' => route('articles.destroy', ['article' => $article]),
+                                    'textContent' => 'This will delete the article and all its comments. This action cannot be undone!',
+                                ])
                             @include('components.edit-button', ['href' => route('articles.edit', ['article' => $article])])
                         @endif
                         @include('components.share-button', ['dataSource' => route('articles.show', ['article' => $article])])
@@ -23,7 +26,7 @@
                 @if($isList)
                     <p class="text-gray-800 mt-2">{{\Illuminate\Support\Str::limit($article->content, 500, '...')}}</p>
                 @else
-                    <p class="text-gray-800 mt-2">{{$article->content}}</p>
+                    <pre class="overflow-x-auto whitespace-pre-wrap text-gray-800 mt-2">{{$article->content}}</pre>
                 @endif
                 <div class="flex flex-col w-full md:flex-row items-center">
                     <div class="font-bold italic">Categories:</div>

@@ -13,6 +13,7 @@ class Comment extends Eloquent\Model
 
     protected $fillable = [
         'content',
+        'user_id',
     ];
 
     public function user(): Eloquent\Relations\BelongsTo
