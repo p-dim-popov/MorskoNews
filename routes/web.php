@@ -21,4 +21,7 @@ Route::get('articles/search/{slug}', [Controllers\ArticleController::class, 'sea
     ->name('articles.search');
 Route::resource('articles', Controllers\ArticleController::class);
 
+Route::resource('articles.comments', Controllers\CommentController::class)
+    ->except(['show', 'index']);
+
 require __DIR__.'/auth.php';

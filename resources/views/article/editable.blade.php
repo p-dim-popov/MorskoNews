@@ -1,13 +1,5 @@
 {{-- Validation summary --}}
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li class="bg-red-100 border-l-4 border-red-300 rounded-md w-full px-6 py-4 my-1.5">
-                {{ $error }}
-            </li>
-        @endforeach
-    </ul>
-@endif
+@include('components.validation-summary', ['errors' => $errors])
 
 {{-- Form --}}
 <form action="{{$action}}" method="POST" class="form bg-white p-6 my-10 relative">
