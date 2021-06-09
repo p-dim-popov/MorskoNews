@@ -1,15 +1,26 @@
-@php
-    $id = \Illuminate\Support\Str::uuid();
-@endphp
-
 <script>
     window.search = () => {
-        window.location.href = `/articles/search/${document.getElementById('{{$id}}').value}`;
+        window.location.href = `/articles/search/${document.getElementById('the-only-search-box-in-the-layout').value}`;
     }
+
+    window.searchDetectInterval = window.setInterval(() => {
+        const searchElement = document.getElementById('the-only-search-box-in-the-layout')
+        if (!searchElement) {
+            return;
+        }
+
+        window.clearInterval(window.searhDetectInterval);
+        searchElement.onkeydown = (event) => {
+            if(event.code === 'Enter') {
+                event.preventDefault();
+                window.search();
+            }
+        }
+    }, 500)
 </script>
 <div class="pt-2 relative mx-auto text-gray-600">
-    <input id="{{$id}}" class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
-           type="search" name="search" placeholder="Search" onkeydown="if(event.keyCode == 13) { event.preventDefault(); window.search(); }">
+    <input id="the-only-search-box-in-the-layout" class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
+           type="search" name="search" placeholder="Search">
     <button
         type="button"
         class="absolute right-0 top-0 mt-5 mr-4"

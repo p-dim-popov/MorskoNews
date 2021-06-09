@@ -139,6 +139,10 @@ class ArticleController extends Controller
     }
 
     public function search(string $slug) {
+        if (empty($slug)) {
+            return redirect('articles.index');
+        }
+
         $articles = collect(preg_split('/[\s,]+/', Str::lower($slug)))
             ->reduce(
                 fn(Builder $query, string $keyword) => $query

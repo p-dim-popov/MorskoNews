@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/articles');
 Route::redirect('/dashboard', '/')->name('dashboard');
 
-Route::get('articles/search/{slug}', [Controllers\ArticleController::class, 'search'])
+Route::get('articles/search/{slug?}', [Controllers\ArticleController::class, 'search'])
     ->name('articles.search');
 Route::resource('articles', Controllers\ArticleController::class);
 
